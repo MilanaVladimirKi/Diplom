@@ -1,0 +1,29 @@
+version: "3.3"
+services:
+ mysql:
+  image: mysql:8
+  restart: always
+  environment:
+   MYSQL_ROOT_PASSWORD: 1
+   MYSQL_DATABASE: app
+   MYSQL_USER: app
+   MYSQL_PASSWORD: pass
+  ports:
+   - "3306:3306"
+  volumes:
+   - ./schema:/docker-entrypoint-initdb.d
+ postgres:
+  image: postgres:13-alpine
+  environment:
+   POSTGRES_DB: "app"
+   POSTGRES_USER: "app"
+   POSTGRES_PASSWORD: "pass"
+  volumes:
+   - ./data/dataBase:/docker-entrypoint-initdb.d
+  ports:
+   - "5432:5432"
+ npm-app:
+  build: .
+  image: npm:1
+  ports:
+   - "9999:9999"
