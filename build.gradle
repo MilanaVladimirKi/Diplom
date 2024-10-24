@@ -1,8 +1,10 @@
 plugins {
     id 'java'
+    id "io.freefair.lombok" version "5.0.0-rc4"
+    id 'io.qameta.allure' version '2.9.6'
 }
 
-group = 'org.example'
+group = 'ru.topacademy'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -10,10 +12,27 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+
+    testImplementation 'com.codeborne:selenide:6.17.2'
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+    testCompileOnly 'org.projectlombok:lombok:1.18.28'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.28'
+    testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
+}
+
+allure {
+    autoconfigure = true
+    version = '2.20.1' // Latest Allure Version
+    useJUnit5 {
+        version = '2.20.1'
+    }
 }
 
 test {
     useJUnitPlatform()
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
+    systemProperty 'chromeoptions.prefs', System.getProperty('chromeoptions.prefs', "profile.password_manager_leak_detection=false")
 }
