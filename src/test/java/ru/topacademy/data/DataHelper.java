@@ -12,4 +12,11 @@ import java.util.Locale;
 
 
 public class DataHelper {
+    private static Faker faker = new Faker(new Locale("en"));
+
+    private DataHelper() {}
+
+    public static String generateValidOwnerName() { return faker.elderScrolls().firstName() + " " + faker.elderScrolls().lastName(); }
+
+    public static String getRightCardNumber() { return "4444 4444 4444 4441"; }
 }
