@@ -17,7 +17,7 @@ public class DataHelper {
 
     private DataHelper() {}
 
-    public static String getValidOwnerName() { return faker.name().fullName(); }
+    public static String getValidOwnerName() { return faker.name().firstName() + " " + faker.name().lastName(); }
 
     public static String getRightCardNumber() { return "4444 4444 4444 4441"; }
 

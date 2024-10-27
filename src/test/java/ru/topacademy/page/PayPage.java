@@ -29,9 +29,17 @@ public class PayPage {
     private SelenideElement ownerError = $$(".input__inner").find(exactText("Владелец")).find(".input__sub");
     private SelenideElement cvvError = $$(".input__inner").find(exactText("CVC/CVV")).find(".input__sub");
 
+    private SelenideElement payHeader = $$("h3").find(exactText("Оплата по карте"));
+
     public PayPage() {
         payButton.click();
+        payHeader.shouldBe(visible);
         cardNumberField.shouldBe(visible);
+        ownerField.shouldBe(visible);
+        cvvField.shouldBe(visible);
+        monthField.shouldBe(visible);
+        yearField.shouldBe(visible);
+        submitButton.shouldBe(visible);
     }
 
     public void fillForm(String cardNumber, String month, String year, String owner, String cvv) {

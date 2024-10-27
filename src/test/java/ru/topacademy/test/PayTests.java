@@ -128,5 +128,4 @@ public class PayTests {
         payPage.showYearError("Поле обязательно для заполнения");
     }
 
-
 }
