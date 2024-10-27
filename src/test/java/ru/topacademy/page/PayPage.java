@@ -71,7 +71,7 @@ public class PayPage {
         ownerError.shouldBe(exactText(message));
     }
 
-    public void showSvvError(String message) {
+    public void showCvvError(String message) {
         cvvError.shouldBe(visible, Duration.ofSeconds(1));
         cvvError.shouldBe(exactText(message));
     }
