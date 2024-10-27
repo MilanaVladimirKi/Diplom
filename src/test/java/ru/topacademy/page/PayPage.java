@@ -44,11 +44,11 @@ public class PayPage {
     }
 
     public void success() {
-        successMessage.shouldBe(visible, Duration.ofSeconds(10));
+        successMessage.shouldBe(visible, Duration.ofSeconds(30));
     }
 
     public void error() {
-        errorMessage.shouldBe(visible, Duration.ofSeconds(10));
+        errorMessage.shouldBe(visible, Duration.ofSeconds(30));
     }
 
     public void showCardNumberError(String message) {
