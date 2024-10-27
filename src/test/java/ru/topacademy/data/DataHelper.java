@@ -36,4 +36,32 @@ public class DataHelper {
     public static String getValidCvv() {
         return "123";
     }
+
+    public static String getUnValidCardNumber() {
+        return "4444 4444 4444 444";
+    }
+
+    public static String getUnValidOwnerCyrillic() {
+        return "Грейс Хоппер";
+    }
+
+    public static String getUnValidOwnerSings() {
+        return "!!#$% @#!%&*";
+    }
+
+    public static String getUnValidOwnerNumbers() {
+        return "Gra1e Ho2per";
+    }
+
+    public static String getUnValidOwnerFirstName() {
+        return faker.name().firstName();
+    }
+
+    public static String getUnValidOwnerLastName() {
+        return faker.name().lastName();
+    }
+
+    public static String getUnValidOwner3Name() {
+        return faker.name().firstName() + " " + faker.name().lastName() + " " + faker.name().firstName();
+    }
 }

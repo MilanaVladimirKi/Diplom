@@ -128,4 +128,94 @@ public class PayTests {
         payPage.showYearError("Поле обязательно для заполнения");
     }
 
+    // 1.3.2
+    @Test
+    public void unValidCatdNumber() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getUnValidCardNumber();
+        String owner = DataHelper.getValidOwnerName();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.showCardNumberError("Неверный формат");
+    }
+
+    // 1.2.1
+    @Test
+    public void unValidOwnerCyrillic() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getUnValidOwnerCyrillic();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.showOwnerError("Неверный формат");
+    }
+
+    // 1.2.3
+    @Test
+    public void unValidOwnerSigns() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getUnValidOwnerSings();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.showOwnerError("Неверный формат");
+    }
+
+    // 1.2.4
+    @Test
+    public void unValidOwnerNumbers() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getUnValidOwnerNumbers();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.showOwnerError("Неверный формат");
+    }
+
+    // 1.2.5
+    @Test
+    public void unValidOwnerFirstName() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getUnValidOwnerFirstName();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.showOwnerError("Неверный формат");
+    }
+
+    // 1.2.6
+    @Test
+    public void unValidOwnerLastName() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getUnValidOwnerLastName();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.showOwnerError("Неверный формат");
+    }
+
+    // 1.2.7
+    @Test
+    public void unValidOwner3Name() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getUnValidOwner3Name();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.showOwnerError("Неверный формат");
+    }
 }

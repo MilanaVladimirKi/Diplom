@@ -1,4 +1,4 @@
-package ru.topacademy.page;
+ package ru.topacademy.page;
 
 import com.codeborne.selenide.SelenideElement;
 
@@ -11,11 +11,11 @@ import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PayPage {
-    private SelenideElement cardNumberField = $$(".input__inner").find(exactText("Номер карты")).find("input");
-    private SelenideElement monthField = $$(".input__inner").find(exactText("Месяц")).find("input");
-    private SelenideElement yearField = $$(".input__inner").find(exactText("Год")).find("input");
-    private SelenideElement ownerField = $$(".input__inner").find(exactText("Владелец")).find("input");
-    private SelenideElement cvvField = $$(".input__inner").find(exactText("CVC/CVV")).find("input");
+    private SelenideElement cardNumberField = $$(".input__top").find(exactText("Номер карты")).parent().find("input");
+    private SelenideElement monthField = $$(".input__top").find(exactText("Месяц")).parent().find("input");
+    private SelenideElement yearField = $$(".input__top").find(exactText("Год")).parent().find("input");
+    private SelenideElement ownerField = $$(".input__top").find(exactText("Владелец")).parent().find("input");
+    private SelenideElement cvvField = $$(".input__top").find(exactText("CVC/CVV")).parent().find("input");
 
     private SelenideElement submitButton = $$("button").find(exactText("Продолжить"));
     private SelenideElement payButton = $$("button").find(exactText("Купить"));
@@ -23,11 +23,11 @@ public class PayPage {
     private SelenideElement successMessage = $(".notification_status_ok");
     private SelenideElement errorMessage = $(".notification_status_error");
 
-    private SelenideElement cardNumberError = $$(".input__inner").find(exactText("Номер карты")).find(".input__sub");
-    private SelenideElement monthError = $$(".input__inner").find(exactText("Месяц")).find(".input__sub");
-    private SelenideElement yearError = $$(".input__inner").find(exactText("Год")).find(".input__sub");
-    private SelenideElement ownerError = $$(".input__inner").find(exactText("Владелец")).find(".input__sub");
-    private SelenideElement cvvError = $$(".input__inner").find(exactText("CVC/CVV")).find(".input__sub");
+    private SelenideElement cardNumberError = $$(".input__top").find(exactText("Номер карты")).parent().find(".input__sub");
+    private SelenideElement monthError = $$(".input__top").find(exactText("Месяц")).parent().find(".input__sub");
+    private SelenideElement yearError = $$(".input__top").find(exactText("Год")).parent().find(".input__sub");
+    private SelenideElement ownerError = $$(".input__top").find(exactText("Владелец")).parent().find(".input__sub");
+    private SelenideElement cvvError = $$(".input__top").find(exactText("CVC/CVV")).parent().find(".input__sub");
 
     private SelenideElement payHeader = $$("h3").find(exactText("Оплата по карте"));
 
@@ -60,7 +60,7 @@ public class PayPage {
     }
 
     public void showCardNumberError(String message) {
-        cardNumberError.shouldBe(visible, Duration.ofSeconds(1));
+        cardNumberError.shouldBe(visible, Duration.ofSeconds(10));
         cardNumberError.shouldHave(exactText(message));
     }
 
