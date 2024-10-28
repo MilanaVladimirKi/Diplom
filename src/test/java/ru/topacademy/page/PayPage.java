@@ -4,11 +4,12 @@ import com.codeborne.selenide.SelenideElement;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 
-import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.*;
+
+import org.openqa.selenium.Keys;
 
 public class PayPage {
     private SelenideElement cardNumberField = $$(".input__top").find(exactText("Номер карты")).parent().find("input");
@@ -51,6 +52,19 @@ public class PayPage {
         submitButton.click();
     }
 
+    public void clearForm() {
+        cardNumberField.sendKeys(Keys.CONTROL + "a");
+        cardNumberField.sendKeys(Keys.BACK_SPACE);
+        monthField.sendKeys(Keys.CONTROL + "a");
+        monthField.sendKeys(Keys.BACK_SPACE);
+        yearField.sendKeys(Keys.CONTROL + "a");
+        yearField.sendKeys(Keys.BACK_SPACE);
+        ownerField.sendKeys(Keys.CONTROL + "a");
+        ownerField.sendKeys(Keys.BACK_SPACE);
+        cvvField.sendKeys(Keys.CONTROL + "a");
+        cvvField.sendKeys(Keys.BACK_SPACE);
+    }
+
     public void success() {
         successMessage.shouldBe(visible, Duration.ofSeconds(30));
     }
@@ -60,7 +74,7 @@ public class PayPage {
     }
 
     public void showCardNumberError(String message) {
-        cardNumberError.shouldBe(visible, Duration.ofSeconds(10));
+        cardNumberError.shouldBe(visible, Duration.ofSeconds(1));
         cardNumberError.shouldHave(exactText(message));
     }
 
@@ -82,5 +96,45 @@ public class PayPage {
     public void showCvvError(String message) {
         cvvError.shouldBe(visible, Duration.ofSeconds(1));
         cvvError.shouldBe(exactText(message));
+    }
+
+    public void hideCardNumberError() {
+        cardNumberError.shouldBe(hidden, Duration.ofSeconds(1));
+    }
+
+    public void hideMonthError() {
+        monthError.shouldBe(hidden, Duration.ofSeconds(1));
+    }
+
+    public void hideYearError() {
+        yearError.shouldBe(hidden, Duration.ofSeconds(1));
+    }
+
+    public void hideOwnerError() {
+        ownerError.shouldBe(hidden, Duration.ofSeconds(1));
+    }
+
+    public void hideCvvError() {
+        cvvError.shouldBe(hidden, Duration.ofSeconds(1));
+    }
+
+    public void visibleCardNumberError() {
+        cardNumberError.shouldBe(visible, Duration.ofSeconds(1));
+    }
+
+    public void visibleMonthError() {
+        monthError.shouldBe(visible, Duration.ofSeconds(1));
+    }
+
+    public void visibleYearError() {
+        yearError.shouldBe(visible, Duration.ofSeconds(1));
+    }
+
+    public void visibleOwnerError() {
+        ownerError.shouldBe(visible, Duration.ofSeconds(1));
+    }
+
+    public void visibleCvvError() {
+        cvvError.shouldBe(visible, Duration.ofSeconds(1));
     }
 }

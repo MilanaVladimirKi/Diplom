@@ -64,4 +64,16 @@ public class DataHelper {
     public static String getUnValidOwner3Name() {
         return faker.name().firstName() + " " + faker.name().lastName() + " " + faker.name().firstName();
     }
+
+    public static String getUnValidMonth() {
+        return "0";
+    }
+
+    public static String getUnValidYear() {
+        return "0";
+    }
+
+    public static String getUnValidCvv() {
+        return "12";
+    }
 }
