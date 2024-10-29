@@ -1,5 +1,6 @@
 package ru.topacademy.test;
 
+import io.opentelemetry.sdk.internal.DaemonThreadFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,8 @@ import static com.codeborne.selenide.Selenide.*;
 import ru.topacademy.page.PayPage;
 import ru.topacademy.data.DataHelper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class PayTests {
     @Test
     public void successPay() {
@@ -27,6 +30,7 @@ public class PayTests {
         String year = DataHelper.getNextYear();
         payPage.fillForm(cardNumber, month, year, owner, cvv);
         payPage.success();
+        assertEquals(DataHelper.approvedStatus(), DataHelper.getLastPaymentStatus());
     }
 
     @Test
@@ -39,6 +43,7 @@ public class PayTests {
         String year = DataHelper.getNextYear();
         payPage.fillForm(cardNumber, month, year, owner, cvv);
         payPage.success();
+        assertEquals(DataHelper.approvedStatus(), DataHelper.getLastPaymentStatus());
         payPage.clearForm();
         cardNumber = DataHelper.getRightCardNumber();
         owner = DataHelper.getValidOwnerName();
@@ -47,6 +52,7 @@ public class PayTests {
         year = DataHelper.getNextYear();
         payPage.fillForm(cardNumber, month, year, owner, cvv);
         payPage.success();
+        assertEquals(DataHelper.approvedStatus(), DataHelper.getLastPaymentStatus());
     }
 
     // 1.2.1
@@ -140,9 +146,22 @@ public class PayTests {
         payPage.showOwnerError("Неверный формат");
     }
 
+    // 1.3.1
+    @Test
+    public void randomCardNumber() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRandomCardNumber();
+        String owner = DataHelper.getValidOwnerName();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.error();
+    }
+
     // 1.3.2
     @Test
-    public void unValidCatdNumber() {
+    public void unValidCardNumber() {
         var payPage = open("http://localhost:8080", PayPage.class);
         String cardNumber =  DataHelper.getUnValidCardNumber();
         String owner = DataHelper.getValidOwnerName();
@@ -151,6 +170,20 @@ public class PayTests {
         String year = DataHelper.getNextYear();
         payPage.fillForm(cardNumber, month, year, owner, cvv);
         payPage.showCardNumberError("Неверный формат");
+    }
+
+    // 1.3.3
+    @Test
+    public void payDeclinedCard() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getDeclinedCardNumber();
+        String owner = DataHelper.getValidOwnerName();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.error();
+        assertEquals(DataHelper.declinedStatus(), DataHelper.getLastPaymentStatus());
     }
 
     // 1.3.4
@@ -179,6 +212,19 @@ public class PayTests {
         payPage.showCvvError("Поле обязательно для заполнения");
     }
 
+    // 1.3.6
+    @Test
+    public void unValidCvv() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getValidOwnerName();
+        String cvv = DataHelper.getUnValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.showCvvError("Неверный формат");
+    }
+
     // 1.3.7
     @Test
     public void emptyAll() {
@@ -196,6 +242,7 @@ public class PayTests {
         payPage.showYearError("Поле обязательно для заполнения");
     }
 
+    // 1.3.8
     @Test
     public void emptyMonth() {
         var payPage = open("http://localhost:8080", PayPage.class);
@@ -208,6 +255,7 @@ public class PayTests {
         payPage.showMonthError("Поле обязательно для заполнения");
     }
 
+    // 1.3.9
     @Test
     public void emptyYear() {
         var payPage = open("http://localhost:8080", PayPage.class);
@@ -220,6 +268,7 @@ public class PayTests {
         payPage.showYearError("Поле обязательно для заполнения");
     }
 
+    // 1.3.10
     @Test
     public void unValidMonth() {
         var payPage = open("http://localhost:8080", PayPage.class);
@@ -232,6 +281,7 @@ public class PayTests {
         payPage.showMonthError("Неверный формат");
     }
 
+    // 1.3.11
     @Test
     public void unValidYear() {
         var payPage = open("http://localhost:8080", PayPage.class);
@@ -244,19 +294,110 @@ public class PayTests {
         payPage.showYearError("Неверный формат");
     }
 
-    // 1.3.6
+    // 1.3.12
     @Test
-    public void unValidCvv() {
+    public void lastYear() {
         var payPage = open("http://localhost:8080", PayPage.class);
         String cardNumber =  DataHelper.getRightCardNumber();
         String owner = DataHelper.getValidOwnerName();
-        String cvv = DataHelper.getUnValidCvv();
+        String cvv = DataHelper.getValidCvv();
         String month = DataHelper.getCurrentMonth();
-        String year = DataHelper.getNextYear();
+        String year = DataHelper.getLastYear();
         payPage.fillForm(cardNumber, month, year, owner, cvv);
-        payPage.showCvvError("Неверный формат");
+        payPage.showYearError("Истёк срок действия карты");
     }
 
+    // 1.3.13
+    @Test
+    public void over5Year() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getValidOwnerName();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getOver5Year();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.showYearError("Неверно указан срок действия карты");
+    }
+
+    // 1.4.1
+    @Test
+    public void over12Month() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getValidOwnerName();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getOver12Month();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.showMonthError("Неверно указан срок действия карты");
+    }
+
+    //    1.4.2
+    @Test
+    public void nextMonth() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getValidOwnerName();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getNextMonth();
+        String year = DataHelper.getCurrentYear();
+        if (month.equals("01")) {
+            year = DataHelper.getNextYear();
+        }
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.success();
+        assertEquals(DataHelper.approvedStatus(), DataHelper.getLastPaymentStatus());
+    }
+
+    // 1.4.3
+    @Test
+    public void currentMonth() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getValidOwnerName();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getCurrentMonth();
+        String year = DataHelper.getCurrentYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.success();
+        assertEquals(DataHelper.approvedStatus(), DataHelper.getLastPaymentStatus());
+    }
+
+    // 1.4.4
+    @Test
+    public void zeroMonth() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getValidOwnerName();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getZeroMonth();
+        String year = DataHelper.getNextYear();
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        payPage.showMonthError("Неверно указан срок действия карты");
+    }
+
+    // 1.4.5
+    @Test
+    public void lastMonth() {
+        var payPage = open("http://localhost:8080", PayPage.class);
+        String cardNumber =  DataHelper.getRightCardNumber();
+        String owner = DataHelper.getValidOwnerName();
+        String cvv = DataHelper.getValidCvv();
+        String month = DataHelper.getLastMonth();
+        String year = DataHelper.getCurrentYear();
+        if (month.equals("12")) {
+            year = DataHelper.getLastYear();
+        }
+        payPage.fillForm(cardNumber, month, year, owner, cvv);
+        if (month.equals("12")) {
+            payPage.showYearError("Истёк срок действия карты");
+        } else  {
+            payPage.showMonthError("Неверно указан срок действия карты");
+        }
+    }
+
+    // 1.5.1
     @Test
     public void hideErrorCardNumber() {
         var payPage = open("http://localhost:8080", PayPage.class);
@@ -274,6 +415,7 @@ public class PayTests {
         payPage.hideCardNumberError();
     }
 
+    // 1.5.2
     @Test
     public void hideErrorOwner() {
         var payPage = open("http://localhost:8080", PayPage.class);
@@ -291,6 +433,7 @@ public class PayTests {
         payPage.hideOwnerError();
     }
 
+    // 1.5.3
     @Test
     public void hideErrorCvv() {
         var payPage = open("http://localhost:8080", PayPage.class);
@@ -308,6 +451,7 @@ public class PayTests {
         payPage.hideCvvError();
     }
 
+    // 1.5.4
     @Test
     public void hideErrorMonth() {
         var payPage = open("http://localhost:8080", PayPage.class);
@@ -325,6 +469,7 @@ public class PayTests {
         payPage.hideMonthError();
     }
 
+    // 1.5.5
     @Test
     public void hideErrorYear() {
         var payPage = open("http://localhost:8080", PayPage.class);
@@ -342,6 +487,7 @@ public class PayTests {
         payPage.hideYearError();
     }
 
+    // 1.5.6
     @Test
     public void hideErrorAll() {
         var payPage = open("http://localhost:8080", PayPage.class);
@@ -370,5 +516,4 @@ public class PayTests {
         payPage.hideMonthError();
         payPage.hideYearError();
     }
-
 }
