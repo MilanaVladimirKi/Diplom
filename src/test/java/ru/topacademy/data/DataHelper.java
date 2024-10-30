@@ -114,9 +114,17 @@ public class DataHelper {
     }
 
     public static String getLastPaymentStatus() {
-        if (DataHelper.currentDatabase().equals("mysql")) {
+        if (currentDatabase().equals("mysql")) {
             var lastPaymentStatusObject = DataMySql.getLastPaymentStatus();
             return lastPaymentStatusObject.getStatus();
+        }
+        return "";
+    }
+
+    public static String getLastCreditStatus() {
+        if (currentDatabase().equals("mysql")) {
+            var lastCreditStatusObject = DataMySql.getLastCreditStatus();
+            return lastCreditStatusObject.getStatus();
         }
         return "";
     }
