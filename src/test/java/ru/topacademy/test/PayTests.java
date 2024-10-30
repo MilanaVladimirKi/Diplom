@@ -15,6 +15,11 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PayTests {
+    @BeforeEach
+    public void clearDatabase() {
+        DataHelper.clearDatabase();
+    }
+
     @Test
     public void successPay() {
         var payPage = open("http://localhost:8080", PayPage.class);

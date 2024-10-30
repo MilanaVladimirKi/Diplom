@@ -15,6 +15,11 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CreditTests {
+    @BeforeEach
+    public void clearDatabase() {
+        DataHelper.clearDatabase();
+    }
+
     @Test
     public void successCredit() {
         var creditPage = open("http://localhost:8080", CreditPage.class);

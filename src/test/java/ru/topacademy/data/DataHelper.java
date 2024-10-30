@@ -128,4 +128,10 @@ public class DataHelper {
         }
         return "";
     }
+
+    public static void clearDatabase() {
+        if (currentDatabase().equals("mysql")) {
+            DataMySql.clearDataBase();
+        }
+    }
 }

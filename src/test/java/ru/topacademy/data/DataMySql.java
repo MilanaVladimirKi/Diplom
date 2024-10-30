@@ -37,4 +37,14 @@ public class DataMySql {
         }
         return null;
     }
+
+    public static void clearDataBase() {
+        try (var conn = getConn()) {
+            runner.execute("DELETE FROM `credit_request_entity`");
+            runner.execute("DELETE FROM `payment_entity`");
+            runner.execute("DELETE FROM `credit_request_entity`");
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
 }
