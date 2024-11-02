@@ -1,4 +1,4 @@
- package ru.topacademy.page;
+package ru.topacademy.page;
 
 import com.codeborne.selenide.SelenideElement;
 

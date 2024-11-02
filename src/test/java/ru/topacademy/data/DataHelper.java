@@ -2,26 +2,24 @@ package ru.topacademy.data;
 
 import com.github.javafaker.Faker;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Validate;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
-import org.openqa.selenium.devtools.v85.database.Database;
 
 import java.util.Locale;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import ru.topacademy.data.DataMySql;
 
 public class DataHelper {
     private static Faker faker = new Faker(new Locale("en"));
 
     private DataHelper() {}
 
-    public static String currentDatabase() { return "postgresql"; }
+    public static String currentDatabase() {
+        return "mysql";
+        // return "postgresql";
+    }
 
     public static String getValidOwnerName() { return faker.name().firstName() + " " + faker.name().lastName(); }
 
