@@ -34,13 +34,12 @@ public class CreditPage {
 
     public CreditPage() {
         creditButton.click();
-        creditHeader.shouldBe(visible);
-        cardNumberField.shouldBe(visible);
-        ownerField.shouldBe(visible);
-        cvvField.shouldBe(visible);
-        monthField.shouldBe(visible);
-        yearField.shouldBe(visible);
-        submitButton.shouldBe(visible);
+        visibleCardNumberField();
+        visibleMonthField();
+        visibleYearField();
+        visibleOwnerField();
+        visibleCvvField();
+        visibleSubmitButton();
     }
 
     public void fillForm(String cardNumber, String month, String year, String owner, String cvv) {
@@ -74,27 +73,27 @@ public class CreditPage {
     }
 
     public void showCardNumberError(String message) {
-        cardNumberError.shouldBe(visible, Duration.ofSeconds(1));
+        visibleCardNumberError();
         cardNumberError.shouldHave(exactText(message));
     }
 
     public void showMonthError(String message) {
-        monthError.shouldBe(visible, Duration.ofSeconds(1));
+        visibleMonthError();
         monthError.shouldBe(exactText(message));
     }
 
     public void showYearError(String message) {
-        yearError.shouldBe(visible, Duration.ofSeconds(1));
+        visibleYearError();
         yearError.shouldBe(exactText(message));
     }
 
     public void showOwnerError(String message) {
-        ownerError.shouldBe(visible, Duration.ofSeconds(1));
+        visibleOwnerError();
         ownerError.shouldBe(exactText(message));
     }
 
     public void showCvvError(String message) {
-        cvvError.shouldBe(visible, Duration.ofSeconds(1));
+        visibleCvvError();
         cvvError.shouldBe(exactText(message));
     }
 
@@ -136,5 +135,29 @@ public class CreditPage {
 
     public void visibleCvvError() {
         cvvError.shouldBe(visible, Duration.ofSeconds(1));
+    }
+
+    public void visibleSubmitButton() {
+        submitButton.shouldBe(visible, Duration.ofSeconds(1));
+    }
+
+    public void visibleCardNumberField() {
+        cardNumberField.shouldBe(visible, Duration.ofSeconds(1));
+    }
+
+    public void visibleMonthField() {
+        monthField.shouldBe(visible, Duration.ofSeconds(1));
+    }
+
+    public void visibleYearField() {
+        yearField.shouldBe(visible, Duration.ofSeconds(1));
+    }
+
+    public void visibleOwnerField() {
+        ownerField.shouldBe(visible, Duration.ofSeconds(1));
+    }
+
+    public void visibleCvvField() {
+        cvvField.shouldBe(visible, Duration.ofSeconds(1));
     }
 }
