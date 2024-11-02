@@ -21,7 +21,7 @@ public class DataHelper {
 
     private DataHelper() {}
 
-    public static String currentDatabase() { return "mysql"; }
+    public static String currentDatabase() { return "postgresql"; }
 
     public static String getValidOwnerName() { return faker.name().firstName() + " " + faker.name().lastName(); }
 
@@ -117,6 +117,9 @@ public class DataHelper {
         if (currentDatabase().equals("mysql")) {
             var lastPaymentStatusObject = DataMySql.getLastPaymentStatus();
             return lastPaymentStatusObject.getStatus();
+        } else if (currentDatabase().equals("postgresql")) {
+            var lastPaymentStatusObject = DataPostgress.getLastPaymentStatus();
+            return lastPaymentStatusObject.getStatus();
         }
         return "";
     }
@@ -125,6 +128,9 @@ public class DataHelper {
         if (currentDatabase().equals("mysql")) {
             var lastCreditStatusObject = DataMySql.getLastCreditStatus();
             return lastCreditStatusObject.getStatus();
+        } else if (currentDatabase().equals("postgresql")) {
+            var lastCreditStatusObject = DataPostgress.getLastCreditStatus();
+            return lastCreditStatusObject.getStatus();
         }
         return "";
     }
@@ -132,6 +138,8 @@ public class DataHelper {
     public static void clearDatabase() {
         if (currentDatabase().equals("mysql")) {
             DataMySql.clearDataBase();
+        } else if (currentDatabase().equals("postgresql")) {
+            DataPostgress.clearDataBase();
         }
     }
 }

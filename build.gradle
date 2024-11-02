@@ -16,6 +16,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
 
     testImplementation 'mysql:mysql-connector-java:8.0.32'
+    testImplementation 'org.postgresql:postgresql:42.2.18'
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
 
     testImplementation 'com.codeborne:selenide:6.17.2'
