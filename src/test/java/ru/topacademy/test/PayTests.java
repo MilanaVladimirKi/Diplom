@@ -6,6 +6,11 @@ import ru.topacademy.data.DataHelper;
 import ru.topacademy.page.PayPage;
 
 import static com.codeborne.selenide.Selenide.open;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+
+import io.qameta.allure.selenide.AllureSelenide;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,6 +18,16 @@ public class PayTests {
     @BeforeEach
     public void clearDatabase() {
         DataHelper.clearDatabase();
+    }
+
+    @AfterAll
+    public static void testAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
+    @BeforeAll
+    public static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @Test

@@ -7,12 +7,27 @@ import ru.topacademy.page.CreditPage;
 
 import static com.codeborne.selenide.Selenide.open;
 
+import com.codeborne.selenide.logevents.SelenideLogger;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import io.qameta.allure.selenide.AllureSelenide;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CreditTests {
     @BeforeEach
     public void clearDatabase() {
         DataHelper.clearDatabase();
+    }
+
+    @AfterAll
+    public static void testAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
+    @BeforeAll
+    public static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @Test
