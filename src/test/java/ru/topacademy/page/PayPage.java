@@ -33,15 +33,11 @@ public class PayPage {
     private SelenideElement payHeader = $$("h3").find(exactText("Оплата по карте"));
 
     public PayPage() {
+        // выполняется клик по кнопке Купить
         payButton.click();
-        visibleCardNumberField();
-        visibleMonthField();
-        visibleYearField();
-        visibleOwnerField();
-        visibleCvvField();
-        visibleSubmitButton();
     }
 
+    // Метод заполнение полей и отправка формы
     public void fillForm(String cardNumber, String month, String year, String owner, String cvv) {
         cardNumberField.setValue(cardNumber);
         monthField.setValue(month);
@@ -51,6 +47,7 @@ public class PayPage {
         submitButton.click();
     }
 
+    // Метод очистка полей формы
     public void clearForm() {
         cardNumberField.sendKeys(Keys.CONTROL + "a");
         cardNumberField.sendKeys(Keys.BACK_SPACE);
@@ -64,10 +61,12 @@ public class PayPage {
         cvvField.sendKeys(Keys.BACK_SPACE);
     }
 
+    // Метод проверяющий вывод сообщение об успешной оплате
     public void success() {
         successMessage.shouldBe(visible, Duration.ofSeconds(30));
     }
 
+    // Метод проверяющий вывод сообщения об отклонении операции банком
     public void error() {
         errorMessage.shouldBe(visible, Duration.ofSeconds(30));
     }

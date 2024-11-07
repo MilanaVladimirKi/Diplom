@@ -34,12 +34,6 @@ public class CreditPage {
 
     public CreditPage() {
         creditButton.click();
-        visibleCardNumberField();
-        visibleMonthField();
-        visibleYearField();
-        visibleOwnerField();
-        visibleCvvField();
-        visibleSubmitButton();
     }
 
     public void fillForm(String cardNumber, String month, String year, String owner, String cvv) {
