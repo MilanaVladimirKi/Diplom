@@ -15,6 +15,8 @@ import io.qameta.allure.selenide.AllureSelenide;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PayTests {
+
+    // метод очистки БД перед каждым тестом
     @BeforeEach
     public void clearDatabase() {
         DataHelper.clearDatabase();

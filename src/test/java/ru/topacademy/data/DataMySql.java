@@ -21,7 +21,7 @@ public class DataMySql {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
     }
 
-    // метод возвращает объект статуса последней оплаты
+    // метод выполняет sql запрос и возвращает объект статуса последней оплаты
     public static DataHelper.TransactionStatus getLastPaymentStatus() {
         var codeSQL = "SELECT `status` FROM `payment_entity` ORDER BY `created` DESC LIMIT 1";
         try (var conn = getConn()) {
@@ -32,7 +32,7 @@ public class DataMySql {
         return null;
     }
 
-    // метод возвращает объект статуса последней оплаты в кредит
+    // метод выполняет sql запрос и возвращает объект статуса последней оплаты в кредит
     public static DataHelper.TransactionStatus getLastCreditStatus() {
         var codeSQL = "SELECT `status` FROM `credit_request_entity` ORDER BY `created` DESC LIMIT 1";
         try (var conn = getConn()) {

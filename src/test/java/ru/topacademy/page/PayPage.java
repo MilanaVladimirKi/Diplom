@@ -35,6 +35,8 @@ public class PayPage {
     public PayPage() {
         // выполняется клик по кнопке Купить
         payButton.click();
+        // проверяется видимость заголовка Оплата по карте
+        payHeader.shouldBe(visible, Duration.ofSeconds(1));
     }
 
     // Метод заполнение полей и отправка формы
@@ -71,92 +73,83 @@ public class PayPage {
         errorMessage.shouldBe(visible, Duration.ofSeconds(30));
     }
 
+    // метод проверяет вывод предупреждение и текст предупреждения, при некоректном заполнении поля Номер карты
     public void showCardNumberError(String message) {
         visibleCardNumberError();
         cardNumberError.shouldHave(exactText(message));
     }
 
+    // метод проверяет вывод предупреждения и текст предупреждения, при некоректном заполнении поля Месяц
     public void showMonthError(String message) {
         visibleMonthError();
         monthError.shouldBe(exactText(message));
     }
 
+    // метод проверяет вывод предупреждения и текст предупреждения, при некоректном заполнении поля Год
     public void showYearError(String message) {
         visibleYearError();
         yearError.shouldBe(exactText(message));
     }
 
+    // метод проверяет вывод предупреждения и текст предупреждения, при некоректном заполнении поля Владелец карты
     public void showOwnerError(String message) {
         visibleOwnerError();
         ownerError.shouldBe(exactText(message));
     }
 
+    // метод проверяет вывод предупреждения и текст предупреждения, при некоректном заполнении поля CVV
     public void showCvvError(String message) {
         visibleCvvError();
         cvvError.shouldBe(exactText(message));
     }
 
+    // метод проверяет скрытие предупреждения о некоректном заполнении поля Номер карты (после исправления)
     public void hideCardNumberError() {
         cardNumberError.shouldBe(hidden, Duration.ofSeconds(1));
     }
 
+    // метод проверяет скрытие предупреждения о некоректном заполнении поля Месяц (после исправления)
     public void hideMonthError() {
         monthError.shouldBe(hidden, Duration.ofSeconds(1));
     }
 
+    // метод проверяет скрытие предупреждения о некоректном заполнении поля Год (после исправления)
     public void hideYearError() {
         yearError.shouldBe(hidden, Duration.ofSeconds(1));
     }
 
+    // метод проверяет скрытие предупреждения о некоректном заполнении поля Владелец карты (после исправления)
     public void hideOwnerError() {
         ownerError.shouldBe(hidden, Duration.ofSeconds(1));
     }
 
+    // метод проверяет скрытие предупреждения о некоректном заполнении поля CVV (после исправления)
     public void hideCvvError() {
         cvvError.shouldBe(hidden, Duration.ofSeconds(1));
     }
 
+    // метод проверяет вывод предупреждения при некоректном заполнении поля Номер карты
     public void visibleCardNumberError() {
         cardNumberError.shouldBe(visible, Duration.ofSeconds(1));
     }
 
+    // метод проверяет вывод предупреждения при некоректном заполнении поля Месяц
     public void visibleMonthError() {
         monthError.shouldBe(visible, Duration.ofSeconds(1));
     }
 
+    // метод проверяет вывод предупреждения при некоректном заполнении поля Год
     public void visibleYearError() {
         yearError.shouldBe(visible, Duration.ofSeconds(1));
     }
 
+    // метод проверяет вывод предупреждения при некоректном заполнении поля Владелец карты
     public void visibleOwnerError() {
         ownerError.shouldBe(visible, Duration.ofSeconds(1));
     }
 
+    // метод проверяет вывод предупреждения при некоректном заполнении поля CVV
     public void visibleCvvError() {
         cvvError.shouldBe(visible, Duration.ofSeconds(1));
-    }
-
-    public void visibleSubmitButton() {
-        submitButton.shouldBe(visible, Duration.ofSeconds(1));
-    }
-
-    public void visibleCardNumberField() {
-        cardNumberField.shouldBe(visible, Duration.ofSeconds(1));
-    }
-
-    public void visibleMonthField() {
-        monthField.shouldBe(visible, Duration.ofSeconds(1));
-    }
-
-    public void visibleYearField() {
-        yearField.shouldBe(visible, Duration.ofSeconds(1));
-    }
-
-    public void visibleOwnerField() {
-        ownerField.shouldBe(visible, Duration.ofSeconds(1));
-    }
-
-    public void visibleCvvField() {
-        cvvField.shouldBe(visible, Duration.ofSeconds(1));
     }
 }
