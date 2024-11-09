@@ -22,11 +22,13 @@ public class PayTests {
         DataHelper.clearDatabase();
     }
 
+    // метод отключения Allure после выполнения всех тестов
     @AfterAll
     public static void testAll() {
         SelenideLogger.removeListener("allure");
     }
 
+    // метод включения Allure после выполнения всех тестов
     @BeforeAll
     public static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());

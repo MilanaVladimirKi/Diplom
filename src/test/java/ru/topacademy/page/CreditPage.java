@@ -32,6 +32,7 @@ public class CreditPage {
 
     private SelenideElement creditHeader = $$("h3").find(exactText("Кредит по данным карты"));
 
+    // конструктор класса
     public CreditPage() {
         // выполняется клик по кнопке Купить в кредит
         creditButton.click();

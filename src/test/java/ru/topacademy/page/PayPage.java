@@ -32,6 +32,7 @@ public class PayPage {
 
     private SelenideElement payHeader = $$("h3").find(exactText("Оплата по карте"));
 
+    // конструктор класса
     public PayPage() {
         // выполняется клик по кнопке Купить
         payButton.click();
