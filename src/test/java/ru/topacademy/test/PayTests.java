@@ -28,7 +28,7 @@ public class PayTests {
         SelenideLogger.removeListener("allure");
     }
 
-    // метод включения Allure после выполнения всех тестов
+    // метод включения Allure перед выполнением всех тестов
     @BeforeAll
     public static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
