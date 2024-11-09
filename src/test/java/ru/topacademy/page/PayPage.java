@@ -36,7 +36,7 @@ public class PayPage {
         // выполняется клик по кнопке Купить
         payButton.click();
         // проверяется видимость заголовка Оплата по карте
-        payHeader.shouldBe(visible, Duration.ofSeconds(1));
+        visiblePayHeader();
     }
 
     // Метод заполнение полей и отправка формы
@@ -152,4 +152,7 @@ public class PayPage {
     public void visibleCvvError() {
         cvvError.shouldBe(visible, Duration.ofSeconds(1));
     }
+
+    // проверяется видимость заголовка Оплата по карте
+    public void visiblePayHeader() { payHeader.shouldBe(visible, Duration.ofSeconds(1)); }
 }

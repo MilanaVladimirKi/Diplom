@@ -36,7 +36,7 @@ public class CreditPage {
         // выполняется клик по кнопке Купить в кредит
         creditButton.click();
         // проверяется видимость заголовка Кредит по данным карты
-        creditHeader.shouldBe(visible, Duration.ofSeconds(1));
+        visibleCreditHeader();
     }
 
     // Метод заполнения полей и отправки формы
@@ -152,4 +152,7 @@ public class CreditPage {
     public void visibleCvvError() {
         cvvError.shouldBe(visible, Duration.ofSeconds(1));
     }
+
+    // проверяется видимость заголовка Купить в кредит
+    public void visibleCreditHeader() { creditHeader.shouldBe(visible, Duration.ofSeconds(1)); }
 }
